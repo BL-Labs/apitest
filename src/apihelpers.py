@@ -14,16 +14,17 @@ def mxl(text):
   return "{" + MARCXML + "}" + text
 
 def get_marc_xml(identifier):
-  #try:
+  try:
   if True:
     payload = {'verb': 'GetRecord', 'metadataPrefix': 'marcxml', 'identifier': '016959122 '}
     r = requests.get("http://v8b-bldgen01.ad.bl.uk/oaipmh/service", params=payload)
-    if r.status == 200:
+    if r.status_code == 200:
       return r.text
     else:
-      print(r.status)
-  #except Exception as e:
-  #  pass
+      print(r.status_code)
+  except requests.exceptions.ConnectionError as e:
+    print("Failed to connect to service."
+    raise e
 
 def parse_oaipmh(xml):
   try:
@@ -48,7 +49,7 @@ def getarkfor(identifier):
     xmltext = get_marc_xml(identifier)
   except Exception as e:
     print("Failed to get XML")
-    print(e)
+    raise e
   try:
     doc = parse_oaipmh(xmltext)
     ark = get_ark_from_doc(doc)
