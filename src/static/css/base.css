@@ -1,0 +1,12 @@
+body {
+	padding-top: 65px;
+}
+
+textarea.textarea-large {
+	width: 40em;
+        height: 8em;
+}
+
+input.input-xlarge {
+	width: 40em;
+}
